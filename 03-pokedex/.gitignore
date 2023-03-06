@@ -13,6 +13,7 @@ lerna-debug.log*
 
 # env
 .env
+.env.prod
 yarn.lock
 # DB
 /mongo

@@ -33,7 +33,7 @@ docker-compose up -d
 localhost:3000/api/v2/seed
 ```
 
-## Production Build
+# Production Build
 
 1. Crear el archivo ``` .env.prod```
 2. Llenar las variables de entorno de prod

@@ -1,4 +1,5 @@
 version: '3'
+
  
 services:
   db:
@@ -7,10 +8,10 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: ${DB_USER}
+      # POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}      
       POSTGRES_DB: ${DB_NAME}
-      PGDATA: /var/lib/postgresql/data/pgdata
+      # PGDATA: /var/lib/postgresql/data/pgdata
     container_name: teslodb
     volumes:
       - ./postgres:/var/lib/postgresql/data

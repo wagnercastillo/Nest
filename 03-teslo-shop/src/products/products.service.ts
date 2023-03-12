@@ -70,7 +70,7 @@ export class ProductsService {
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {
-
+  
     const product = await this.productRepository.preload({
       id: id, 
       ...updateProductDto
@@ -79,8 +79,9 @@ export class ProductsService {
     if( !product ) throw new BadRequestException(`Product with ID${ id } not found`)
 
     try {
-
+      
       await this.productRepository.save( product )
+      
       return product;
       
     } catch (error) {

@@ -22,5 +22,4 @@ docker-compose up -d
 https://localhost:3000/api/seed
 ```
 
-
-6. Levantar el modo desarollo con ```npm run start:dev```
+7. Levantar el modo desarollo con ```npm run start:dev```

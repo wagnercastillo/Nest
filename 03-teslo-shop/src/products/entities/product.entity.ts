@@ -1,14 +1,14 @@
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity()
 export class Product {
 
     @PrimaryGeneratedColumn('uuid')
-    id: string; 
+    id: string;
 
-    
-    @Column('text', { 
+
+    @Column('text', {
         unique: true,
     })
     title: string;
@@ -34,7 +34,7 @@ export class Product {
         default: 0
     })
     stock: number;
-    
+
 
     @Column('text', {
         array: true,
@@ -48,9 +48,9 @@ export class Product {
 
 
     @BeforeInsert()
-    checkSlugInsert(){
+    checkSlugInsert() {
 
-        if(!this.slug){
+        if (!this.slug) {
             this.slug = this.title;
         }
 
@@ -61,4 +61,18 @@ export class Product {
 
     }
 
+
+
+    @BeforeUpdate()
+    checkSlugUpdate() {
+        this.slug = this.slug
+            .toLowerCase()
+            .replaceAll(' ', '_')
+            .replaceAll("'", '')
+
+    }
+
+
+
 }
+

@@ -8,6 +8,6 @@ export interface PokeResponse{
 }
 
 export interface Result {
-    name: string;
+    name: string;   
     url:  string;
 }

@@ -41,6 +41,8 @@ export class SeedService {
   private async insertUsers () {
 
     const seedUsers = initialData.users;
+    
+    console.log(seedUsers);
 
     const users: User[] = [];
 

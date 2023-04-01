@@ -1,12 +1,20 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { ProductImage } from "./product-image.entity";
 import { User } from "../../auth/entities/user.entity";
+import { ApiProperty } from "@nestjs/swagger";
 
 
 @Entity({
     name: 'products'
 })
 export class Product {
+
+    @ApiProperty({
+        example: '',
+        description: 'Product ID',
+        uniqueItems: true
+
+    })
 
     @PrimaryGeneratedColumn('uuid')
     id: string;

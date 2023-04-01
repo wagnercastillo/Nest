@@ -42,8 +42,6 @@ export class SeedService {
 
     const seedUsers = initialData.users;
     
-    console.log(seedUsers);
-
     const users: User[] = [];
 
     seedUsers.forEach( user => {

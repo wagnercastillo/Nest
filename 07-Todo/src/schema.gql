@@ -2,11 +2,41 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Todo {
+  id: Int!
+  description: String!
+  done: Boolean!
+}
+
 type Query {
   """Hola mundo es lo que retorna"""
   hello: String!
   randomNumber: Float!
 
   """From zero to argument to"""
-  RandomFromZeroTo(to: Int): Int!
+  randomFromZeroTo(to: Int): Int!
+  todos(
+    """Status Args"""
+    status: Boolean
+  ): [Todo!]!
+  todo(id: Int!): Todo!
+}
+
+type Mutation {
+  CreateTodo(createTodoInput: CreateTodoInput!): Todo!
+  updateTodo(updateTodoInput: UpdateTodoInput!): Todo!
+  removeTodo(id: Int!): Boolean!
+}
+
+input CreateTodoInput {
+  """What needs to be done"""
+  description: String!
+}
+
+input UpdateTodoInput {
+  id: Int!
+
+  """What needs to be done"""
+  description: String
+  done: Boolean
 }

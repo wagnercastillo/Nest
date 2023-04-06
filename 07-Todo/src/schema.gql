@@ -8,6 +8,14 @@ type Todo {
   done: Boolean!
 }
 
+"""Todo quick aggregation"""
+type AggregationType {
+  total: Int!
+  pending: Int!
+  completed: Int!
+  totalTodosCompleted: Int! @deprecated(reason: "Most use completed instead")
+}
+
 type Query {
   """Hola mundo es lo que retorna"""
   hello: String!
@@ -20,6 +28,10 @@ type Query {
     status: Boolean
   ): [Todo!]!
   todo(id: Int!): Todo!
+  totalTodos: Int!
+  completedTodos: Int!
+  pendingTodos: Int!
+  aggregations: AggregationType!
 }
 
 type Mutation {

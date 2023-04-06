@@ -9,17 +9,25 @@ export class TodoService {
 
 
     private todos: Todo[] = [
-        {
-            id: 1, description: 'Piedra del alma', done: false
-        },
-        {
-            id: 2, description: 'Piedra del alma', done: false
-        },
-        {
-            id: 3, description: 'Piedra del alma', done: false
-        }
-
+        { id: 1, description: 'Piedra del alma', done: false },
+        { id: 2, description: 'Piedra del alma', done: true },
+        { id: 3, description: 'Piedra del alma', done: false }
     ]
+
+    get totalTodos(){
+        return this.todos.length;
+    }
+
+    get completedTodos(){
+        const pendingTodo = this.todos.filter( todo => todo.done === true );
+        return pendingTodo.length || 0;
+    }
+
+    get pendingTodos(){
+        const pendingTodo = this.todos.filter( todo => todo.done === false );
+        return pendingTodo.length || 0;
+    }
+    
 
     findAll( statusArgs: StatusArgs ): Todo[]{
 

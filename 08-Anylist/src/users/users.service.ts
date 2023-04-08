@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 
 import { UpdateUserInput } from './dto/update-user.input';
@@ -36,8 +36,15 @@ export class UsersService {
     return [];
   }
 
-  async findOne(id: string): Promise<User> {
-    throw new Error (`findOne not implemented`);
+  async findOneByEmail(email: string): Promise<User> {
+
+    try {
+      return await this.usersRepository.findOneByOrFail({ email })
+    } catch (error) {
+      throw new NotFoundException(`${ email } not found`)
+    }
+    
+    
   }
 
   update(id: number, updateUserInput: UpdateUserInput) {
@@ -54,6 +61,7 @@ export class UsersService {
       throw new BadRequestException(error.detail.replace('Key', ''))
     }
 
+  
     this.logger.error( error );
     throw new InternalServerErrorException('Please check server logs');
   }

@@ -5,8 +5,10 @@ import { SignupInput } from './dto/inputs/signup.input';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LoginInput } from './dto/inputs';
 import { AuthService } from './auth.service';
+import { CurrentUser } from './decorator/current-user.decorator';
+import { User } from '../users/entities/user.entity';
 
-@Resolver()
+@Resolver( () => AuthResponse )
 export class AuthResolver {
   
   constructor(
@@ -30,11 +32,9 @@ export class AuthResolver {
   @Query( () => AuthResponse,{ name: 'revalite'})
   @UseGuards( JwtAuthGuard )
   revalidateToken(
-     
-  ):AuthResponse{
-
-    throw new Error('No implementado')
-    // return this.authService.revalidateToken()
+    @CurrentUser( /** [ ValidRoles.admin ] */) user: User     
+  ):AuthResponse {
+    return this.authService.revalidateToken( user )
   }
   
 

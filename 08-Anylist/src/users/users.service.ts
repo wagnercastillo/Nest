@@ -43,8 +43,15 @@ export class UsersService {
     } catch (error) {
       throw new NotFoundException(`${ email } not found`)
     }
-    
-    
+  }
+
+  async findOneById(id: string): Promise<User> {
+
+    try {
+      return await this.usersRepository.findOneByOrFail({ id })
+    } catch (error) {
+      throw new NotFoundException(`${ id } not found`)
+    }
   }
 
   update(id: number, updateUserInput: UpdateUserInput) {

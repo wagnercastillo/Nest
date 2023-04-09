@@ -6,6 +6,7 @@ import { User } from './entities/user.entity';
 import { SignupInput } from '../auth/dto/inputs/signup.input';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ValidRoles } from '../auth/enums/valid-roles.enums';
 
 @Injectable()
 export class UsersService {
@@ -32,8 +33,19 @@ export class UsersService {
     }
   }
 
-  async findAll(): Promise<User[]> {
-    return [];
+  async findAll( roles: ValidRoles[] ): Promise<User[]> {
+    
+    if( roles.length === 0) return this.usersRepository.find({
+      // TODO: No es necesario, porque esta establecida Lazy en la propiedad de lastUpdateBy
+      // relations: {
+      //   lastUpdateBy: true
+      // }
+    });
+    return this.usersRepository.createQueryBuilder()
+      .andWhere('ARRAY[roles] && ARRAY[:...roles]')
+      .setParameter('roles', roles)
+      .getMany();
+    
   }
 
   async findOneByEmail(email: string): Promise<User> {
@@ -58,8 +70,11 @@ export class UsersService {
     return `This action updates a #${id} user`;
   }
 
-  block(id: string): Promise<User> {
-    throw new Error (`block not implemented`);
+  async block(id: string, user: User): Promise<User> {
+    const userToBlock = await this.findOneById( id )
+    userToBlock.isActive = false;
+    userToBlock.lastUpdateBy = user;
+    return await this.usersRepository.save( userToBlock)
   }
 
   private handleDBErrors( error: any ): never {

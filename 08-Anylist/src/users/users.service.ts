@@ -82,9 +82,6 @@ export class UsersService {
     } catch (error) {
       this.handleDBErrors(error)
     }
-    
-    
-    
   }
 
   async block(id: string, user: User): Promise<User> {

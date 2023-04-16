@@ -51,7 +51,7 @@ export class ListsResolver {
   updateList(
     @Args('updateListInput') updateListInput: UpdateListInput,
     @CurrentUser() user: User
-  ){
+  ):Promise<List>{
     return this.listsService.update(updateListInput.id, updateListInput, user);
   }
 

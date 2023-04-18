@@ -1,18 +1,20 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { ListsService } from './lists.service';
 import { ListsResolver } from './lists.resolver';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { List } from './entities/list.entity';
 import { ListItemModule } from '../list-item/list-item.module';
+import { List } from './entities/list.entity';
 
 @Module({
   providers: [ListsResolver, ListsService],
   imports: [
     TypeOrmModule.forFeature([ List ]),
-    ListItemModule
+    ListItemModule,
   ],
   exports: [ 
-    ListsService, TypeOrmModule
+    TypeOrmModule,
+    ListsService, 
   ]
 })
 export class ListsModule {}

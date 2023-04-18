@@ -25,7 +25,6 @@ export class ListItem {
   @Field( () => List )
   list: List;
 
-
   @ManyToOne( () => Item, (item) => item.listItem, { lazy: true})
   @Field( () => Item)
   item: Item

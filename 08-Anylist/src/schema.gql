@@ -14,7 +14,8 @@ type List {
   id: ID!
   name: String!
   user: User!
-  listItem: [ListItem!]!
+  items(offset: Int = 0, limit: Int = 10, search: String): [ListItem!]!
+  totalItems: Int!
 }
 
 type User {
@@ -51,7 +52,7 @@ type Query {
   item(id: ID!): Item!
   lists(search: String, offset: Int = 0, limit: Int = 10): [List!]!
   list(id: ID!): List!
-  listItem: [ListItem!]!
+  listItem(id: String!): ListItem!
 }
 
 """
@@ -74,10 +75,10 @@ type Mutation {
   createList(createListInput: CreateListInput!): List!
   updateList(updateListInput: UpdateListInput!): List!
   removeList(id: ID!): List!
+  createListItem(createListItemInput: CreateListItemInput!): ListItem!
 
   """Ejecuta la contrucción de la base de datos"""
   executedSeed: Boolean!
-  createListItem(createListItemInput: CreateListItemInput!): ListItem!
 }
 
 input SignupInput {
